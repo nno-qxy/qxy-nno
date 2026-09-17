@@ -1,0 +1,23 @@
+<view wx:if="{{show}}" class="ps-mask" bindtap="onCancel" catchtouchmove="noop">
+  <view class="ps-sheet" catchtap="noop">
+    <view class="ps-hd">
+      <text class="ps-btn" bindtap="onCancel">{{cancelText}}</text>
+      <text class="ps-title">{{title}}</text>
+      <text class="ps-btn ps-ok" bindtap="onConfirm">{{confirmText}}</text>
+    </view>
+
+    <scroll-view class="ps-body" scroll-y>
+      <view
+        wx:for="{{range}}"
+        wx:key="*this"
+        class="ps-opt {{index === tmpIndex ? 'on' : ''}}"
+        data-i="{{index}}"
+        bindtap="onPick"
+      >
+        <text class="ps-opt-text">{{item}}</text>
+        <text class="ps-tick" wx:if="{{index === tmpIndex}}">✓</text>
+      </view>
+      <view class="ps-foot-space" />
+    </scroll-view>
+  </view>
+</view>

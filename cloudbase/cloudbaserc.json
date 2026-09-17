@@ -1,0 +1,43 @@
+{
+  "version": "2.0",
+  "envId": "nno-d2gspwvpl6c3c9f46",
+  "functionRoot": "functions",
+  "functions": [
+    {
+      "name": "skillswap-api",
+      "timeout": 20,
+      "memorySize": 256,
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "installDependency": true,
+      "ignore": ["node_modules", "node_modules/*", ".git", "*.md"]
+    },
+    {
+      "name": "admin-static",
+      "timeout": 10,
+      "memorySize": 256,
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "installDependency": false,
+      "ignore": ["node_modules", "node_modules/*", ".git"]
+    },
+    {
+      "name": "seed-data",
+      "timeout": 20,
+      "memorySize": 256,
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "installDependency": true,
+      "ignore": ["node_modules", "node_modules/*", ".git", "*.md"]
+    },
+    {
+      "name": "seed-related",
+      "timeout": 20,
+      "memorySize": 256,
+      "runtime": "Nodejs18.15",
+      "handler": "index.main",
+      "installDependency": true,
+      "ignore": ["node_modules", "node_modules/*", ".git", "*.md"]
+    }
+  ]
+}

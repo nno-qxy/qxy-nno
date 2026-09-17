@@ -1,0 +1,235 @@
+.page {
+  min-height: 100vh;
+  background: var(--canvas);
+  padding: 24rpx;
+  box-sizing: border-box;
+}
+
+/* ---------- 基本信息 ---------- */
+.hero {
+  background: var(--card);
+  border-radius: 24rpx;
+  padding: 44rpx 32rpx 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.avatar {
+  width: 132rpx;
+  height: 132rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 54rpx;
+  font-weight: 600;
+}
+
+.hero-name {
+  margin-top: 22rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.hero-sub {
+  margin-top: 10rpx;
+  font-size: 26rpx;
+  color: var(--muted);
+}
+
+.hero-tags {
+  margin-top: 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag {
+  margin: 0 10rpx 12rpx;
+  font-size: 24rpx;
+  color: var(--teach);
+  background: var(--teach-bg);
+  padding: 6rpx 20rpx;
+  border-radius: 999rpx;
+}
+
+.hero-join {
+  margin-top: 12rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+  opacity: 0.85;
+}
+
+/* ---------- 好评率 ---------- */
+.rate-card {
+  margin-top: 24rpx;
+  background: var(--card);
+  border-radius: 24rpx;
+  display: flex;
+  align-items: center;
+  padding: 32rpx 0;
+  box-shadow: var(--shadow);
+}
+
+.rate-item {
+  flex: 1;
+  text-align: center;
+}
+
+.rate-num {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.rate-label {
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: var(--muted);
+}
+
+.rate-line {
+  width: 1rpx;
+  height: 56rpx;
+  background: var(--line);
+}
+
+/* ---------- tabs ---------- */
+.tabs {
+  margin-top: 24rpx;
+  display: flex;
+  background: var(--card);
+  border-radius: 20rpx;
+  padding: 8rpx;
+}
+
+.tab {
+  flex: 1;
+  height: 72rpx;
+  line-height: 72rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: var(--muted);
+  border-radius: 16rpx;
+}
+
+.tab.on {
+  background: var(--canvas);
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- 列表 ---------- */
+.list {
+  margin-top: 22rpx;
+}
+
+.more-tip {
+  text-align: center;
+  font-size: 24rpx;
+  padding: 20rpx 0 8rpx;
+}
+
+/* ---------- 评价条目 ---------- */
+.rev {
+  background: var(--card);
+  border-radius: 20rpx;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.rev-top {
+  display: flex;
+  align-items: center;
+}
+
+.rev-avatar {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28rpx;
+  flex: none;
+}
+
+.rev-mid {
+  flex: 1;
+  margin-left: 18rpx;
+  overflow: hidden;
+}
+
+.rev-name {
+  font-size: 28rpx;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.rev-meta {
+  margin-top: 6rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+
+.rev-badge {
+  flex: none;
+  font-size: 24rpx;
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+}
+
+.rev-badge.ok {
+  color: var(--ok);
+  background: var(--ok-bg);
+}
+
+.rev-badge.bad {
+  color: var(--warn);
+  background: var(--warn-bg);
+}
+
+.rev-badge.note {
+  color: var(--pending);
+  background: var(--pending-bg);
+}
+
+.rev-comment {
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.rev-post {
+  margin-top: 18rpx;
+  font-size: 24rpx;
+  color: var(--teach);
+}
+
+/* ---------- 错误态 ---------- */
+.error {
+  margin-top: 200rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-msg {
+  font-size: 28rpx;
+  color: var(--muted);
+}
+
+.error-btn {
+  margin-top: 28rpx;
+  padding: 16rpx 48rpx;
+  font-size: 28rpx;
+  color: var(--teach);
+  background: var(--teach-bg);
+  border-radius: 999rpx;
+}

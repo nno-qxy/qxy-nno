@@ -1,0 +1,117 @@
+<view class="page">
+
+  <!-- 搜索：按标签搜（同时兼容标题 / 正文关键词） -->
+  <view class="sbar">
+    <view class="sbox">
+      <view class="s-ico"></view>
+      <input
+        class="s-input"
+        value="{{keyword}}"
+        type="text"
+        placeholder="搜索标签，如「高数」「吉他」"
+        placeholder-class="s-ph"
+        confirm-type="search"
+        bindinput="onKeywordInput"
+        bindconfirm="onSearch"
+        bindfocus="onSearchFocus"
+      />
+      <view wx:if="{{keyword}}" class="s-clear" bindtap="onClearKeyword">✕</view>
+    </view>
+    <view class="s-go" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 聚焦展开：热门标签（点一下直接搜） -->
+  <view wx:if="{{searchOpen}}" class="sug">
+    <view wx:if="{{keyword}}" class="sug-go" bindtap="onSearch">
+      <text class="sug-go-t">搜索「{{keyword}}」</text>
+      <text class="sug-go-a">›</text>
+    </view>
+    <view class="sug-title">热门标签</view>
+    <view class="sug-chips">
+      <view
+        class="sug-chip {{appliedKw === t.tag ? 'on' : ''}}"
+        wx:for="{{hotTags}}"
+        wx:for-item="t"
+        wx:key="tag"
+        data-tag="{{t.tag}}"
+        bindtap="onTapTag"
+      >#{{t.tag}}</view>
+      <view wx:if="{{hotTagsLoaded && !hotTags.length}}" class="sug-empty">还没有标签，发布时会自动带上</view>
+    </view>
+    <view class="sug-close" bindtap="onCloseSuggest">收起</view>
+  </view>
+
+  <!-- 意图 Tab：全部 / 我想学 / 我能教（数量徽标来自 /api/posts/counts） -->
+  <view class="intents">
+    <view
+      class="intent {{intent === item.key ? 'on ' + item.key : ''}}"
+      wx:for="{{intents}}"
+      wx:for-item="item"
+      wx:key="key"
+      data-k="{{item.key}}"
+      bindtap="onSwitchIntent"
+    >
+      <text class="intent-label">{{item.label}}</text>
+      <text class="intent-num" wx:if="{{item.count}}">{{item.count}}</text>
+    </view>
+  </view>
+
+  <!-- 分类 chips（固定 6 类 + 全部） -->
+  <scroll-view class="cats" scroll-x enable-flex>
+    <view
+      class="chip {{activeCat === cat ? 'on' : ''}}"
+      wx:for="{{cats}}"
+      wx:for-item="cat"
+      wx:key="*this"
+      data-cat="{{cat}}"
+      bindtap="onSwitchCat"
+    >{{cat}}</view>
+  </scroll-view>
+
+  <!-- 生效中的搜索条件（可一键清除） -->
+  <view wx:if="{{appliedKw}}" class="kwbar">
+    <text class="kw-label">搜索</text>
+    <view class="kw-chip" bindtap="onClearKeyword">
+      <text class="kw-text">#{{appliedKw}}</text>
+      <text class="kw-x">✕</text>
+    </view>
+  </view>
+
+  <!-- 信息流 -->
+  <view class="feed">
+    <post-card
+      wx:for="{{list}}"
+      wx:key="_id"
+      item="{{item}}"
+      bind:tap="onTapCard"
+    />
+
+    <!-- 空态：不只提示「没有」，而是给出「发布」与「换一条路」两条出路 -->
+    <view class="feed-empty" wx:if="{{loaded && !loadError && !list.length}}">
+      <view class="fe-box"></view>
+      <view class="fe-text">{{emptyText}}</view>
+      <view class="fe-hint" wx:if="{{emptyHint}}">{{emptyHint}}</view>
+      <view class="fe-btns" wx:if="{{emptyActionText || emptyAltText}}">
+        <view
+          class="fe-btn primary"
+          wx:if="{{emptyActionText}}"
+          bindtap="onEmptyAction"
+        >{{emptyActionText}}</view>
+        <view
+          class="fe-btn ghost"
+          wx:if="{{emptyAltText}}"
+          bindtap="onEmptyAlt"
+        >{{emptyAltText}}</view>
+      </view>
+    </view>
+
+    <view class="feed-error" wx:if="{{loadError}}">
+      <text class="feed-error-msg">{{loadError}}</text>
+      <view class="feed-error-btn" bindtap="onRetry">点击重试</view>
+    </view>
+
+    <view class="feed-loading" wx:if="{{loading}}">加载中...</view>
+    <view class="feed-end" wx:if="{{loaded && list.length && !hasMore && !loadError}}">已经到底啦</view>
+  </view>
+
+</view>

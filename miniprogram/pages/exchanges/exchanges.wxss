@@ -1,0 +1,312 @@
+.page {
+  min-height: 100vh;
+  background: var(--feed-bg);
+}
+
+.tabs {
+  white-space: nowrap;
+  background: var(--card);
+  padding: 0 24rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+  display: flex;
+}
+.tab {
+  display: inline-block;
+  font-size: 26rpx;
+  color: var(--muted);
+  padding: 24rpx 16rpx;
+  margin-right: 8rpx;
+  position: relative;
+}
+.tab.on {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tab.on::after {
+  content: '';
+  position: absolute;
+  left: 16rpx;
+  right: 16rpx;
+  bottom: 8rpx;
+  height: 6rpx;
+  background: var(--red-deep);
+  border-radius: 3rpx;
+}
+
+.list {
+  padding: 20rpx 24rpx;
+}
+
+.row {
+  background: var(--card);
+  border-radius: 20rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.row-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.role {
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+}
+.role.applicant { color: var(--teach); background: #E7EEFF; }
+.role.target { color: var(--learn); background: #EFE2FF; }
+
+.status {
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 4rpx 14rpx;
+  border-radius: 8rpx;
+}
+.s-pending { color: var(--warn); background: #FFF5E6; }
+.s-active { color: var(--ok); background: var(--ok-bg); }
+.s-started { color: var(--teach); background: var(--teach-bg); }
+.s-completed { color: var(--muted); background: var(--hover); }
+.s-cancelled { color: var(--muted); background: var(--hover); }
+.s-rejected { color: var(--muted); background: var(--hover); }
+
+.post-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 8rpx;
+}
+.msg {
+  font-size: 26rpx;
+  color: var(--ink-2, #444);
+  background: var(--hover);
+  border-radius: 12rpx;
+  padding: 14rpx 18rpx;
+  margin: 8rpx 0 12rpx;
+  line-height: 1.5;
+}
+.meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 24rpx;
+}
+.peer { color: var(--ink); }
+
+.hint {
+  font-size: 24rpx;
+  margin-top: 10rpx;
+}
+
+/* 交换达成后：双方联系方式（长按复制） */
+.contact {
+  margin-top: 16rpx;
+  padding: 18rpx 20rpx;
+  background: var(--canvas);
+  border-radius: 14rpx;
+}
+.contact-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 10rpx;
+}
+.contact-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+  padding: 4rpx 0;
+}
+.contact-k {
+  flex: 0 0 auto;
+  font-size: 23rpx;
+  color: var(--muted);
+  width: 64rpx;
+}
+.contact-v {
+  flex: 1;
+  font-size: 26rpx;
+  color: var(--ink);
+  font-weight: 600;
+  word-break: break-all;
+}
+.contact-v.is-empty {
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 23rpx;
+}
+.contact-tip {
+  margin-top: 8rpx;
+  font-size: 21rpx;
+  color: var(--muted);
+}
+
+/* 对方留下的「临时有事 / 再约时间」留言 */
+.note-msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+  margin-top: 12rpx;
+  padding: 14rpx 18rpx;
+  background: var(--warn-bg);
+  border-radius: 14rpx;
+}
+.note-ico {
+  flex: 0 0 auto;
+  font-size: 23rpx;
+  color: var(--warn);
+  line-height: 1.6;
+}
+.note-text {
+  flex: 1;
+  font-size: 24rpx;
+  line-height: 1.6;
+  color: var(--warn);
+}
+.note-time {
+  flex: 0 0 auto;
+  font-size: 21rpx;
+  color: var(--warn);
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* 已评价：收起按钮，改为展示「评价结果」（我的评价 + 对方的评价） */
+.evals {
+  margin-top: 14rpx;
+  padding: 18rpx 20rpx;
+  background: var(--canvas);
+  border-radius: 14rpx;
+}
+.evals-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-bottom: 4rpx;
+}
+.evals-title {
+  font-size: 24rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+.evals-state {
+  font-size: 21rpx;
+  color: var(--muted);
+}
+.evals-state.done {
+  color: var(--ok);
+}
+
+.eval-item {
+  margin-top: 14rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--line-soft);
+}
+.evals-head + .eval-item {
+  border-top: 0;
+  padding-top: 0;
+}
+.eval-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+.eval-who {
+  font-size: 23rpx;
+  font-weight: 600;
+  color: var(--ink-2, #444);
+}
+.eval-badge {
+  font-size: 21rpx;
+  font-weight: 600;
+  padding: 2rpx 14rpx;
+  border-radius: 999rpx;
+}
+.eval-badge.ok { color: var(--ok); background: var(--ok-bg); }
+.eval-badge.bad { color: var(--red-deep); background: rgba(194, 24, 61, 0.10); }
+.eval-badge.none { color: var(--muted); background: var(--hover); }
+.eval-badge.note { color: var(--learn); background: var(--learn-bg); }
+.eval-time {
+  margin-left: auto;
+  font-size: 21rpx;
+  color: var(--muted);
+}
+.eval-text {
+  margin-top: 8rpx;
+  font-size: 25rpx;
+  line-height: 1.6;
+  color: var(--ink-2, #2B2F38);
+  word-break: break-all;
+}
+.eval-text.is-empty {
+  color: var(--muted);
+  font-size: 23rpx;
+}
+.eval-wait {
+  margin-top: 14rpx;
+  padding-top: 14rpx;
+  border-top: 1rpx solid var(--line-soft);
+  font-size: 23rpx;
+  color: var(--muted);
+}
+
+/* 交换达成后的安全提示条（双方可见） */
+.safety {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+  margin-top: 14rpx;
+  padding: 16rpx 18rpx;
+  background: var(--warn-bg);
+  border-radius: 14rpx;
+}
+.safety-ico { font-size: 24rpx; line-height: 1.5; flex: 0 0 auto; color: var(--warn); }
+.safety-text {
+  flex: 1;
+  font-size: 23rpx;
+  color: var(--warn);
+  line-height: 1.5;
+}
+.safety-more { font-size: 23rpx; color: var(--warn); opacity: 0.75; flex: 0 0 auto; }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 16rpx;
+  margin-top: 18rpx;
+}
+.btn {
+  font-size: 26rpx;
+  padding: 10rpx 30rpx;
+  border-radius: 12rpx;
+  line-height: 1.8;
+  margin: 0;
+}
+.btn.primary {
+  background: var(--red-deep);
+  color: #fff;
+}
+.btn.ghost {
+  background: var(--card);
+  color: var(--ink-2, #444);
+  border: 1rpx solid var(--line);
+}
+
+.empty {
+  padding: 140rpx 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+.empty-main {
+  font-size: 28rpx;
+  color: var(--ink);
+}
+.empty-sub {
+  font-size: 24rpx;
+}

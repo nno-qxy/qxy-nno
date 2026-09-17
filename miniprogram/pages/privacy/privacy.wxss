@@ -1,0 +1,49 @@
+.page {
+  min-height: 100vh;
+  background: #f5f6f8;
+  padding: 24rpx 28rpx 60rpx;
+  box-sizing: border-box;
+}
+.doc {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 36rpx 32rpx 40rpx;
+}
+.h1 {
+  font-size: 38rpx;
+  font-weight: 700;
+  color: #1a1d24;
+  margin: 8rpx 0 12rpx;
+}
+.meta {
+  font-size: 22rpx;
+  color: #9aa1ad;
+  margin-bottom: 20rpx;
+}
+.h2 {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #1a1d24;
+  margin: 28rpx 0 12rpx;
+}
+.p {
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #444b57;
+}
+.li {
+  font-size: 26rpx;
+  line-height: 1.7;
+  color: #444b57;
+}
+.hr {
+  height: 1rpx;
+  background: #eef0f3;
+  margin: 36rpx 0;
+}
+.tip {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+  color: #8a93a1;
+  line-height: 1.6;
+}

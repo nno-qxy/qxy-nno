@@ -1,0 +1,87 @@
+/**
+ * 自研选择器：浅色主题锁定，不受系统深色模式影响
+ * 颜色一律引用 tokens.wxss 的变量（随 app.wxss 全局注入并继承到组件内）
+ */
+
+.ps-mask {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(17, 20, 26, 0.45);
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ps-sheet {
+  width: 100%;
+  background: var(--card);
+  border-radius: 28rpx 28rpx 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-sizing: border-box;
+  animation: ps-up 0.18s ease-out;
+}
+
+@keyframes ps-up {
+  from { transform: translateY(20%); opacity: 0.6; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.ps-hd {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26rpx 32rpx;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+
+.ps-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.ps-btn {
+  font-size: 28rpx;
+  color: var(--muted);
+  padding: 6rpx 10rpx;
+}
+
+.ps-btn.ps-ok {
+  color: var(--red-deep);
+  font-weight: 600;
+}
+
+.ps-body {
+  max-height: 560rpx;
+}
+
+.ps-opt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30rpx 36rpx;
+  font-size: 30rpx;
+  color: var(--ink);
+}
+
+.ps-opt.on {
+  color: var(--red-deep);
+  font-weight: 600;
+  background: rgba(194, 24, 61, 0.06);
+}
+
+.ps-opt-text {
+  flex: 1;
+}
+
+.ps-tick {
+  font-size: 28rpx;
+  color: var(--red-deep);
+}
+
+.ps-foot-space {
+  height: 16rpx;
+}

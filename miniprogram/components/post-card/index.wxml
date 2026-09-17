@@ -1,0 +1,22 @@
+<view class="card" wx:if="{{item}}" bindtap="onTap" hover-class="card-hover">
+  <view class="card-top">
+    <view class="mark {{type.cls}}">
+      <text class="arw">{{type.arrow}}</text>
+      {{type.text}}
+    </view>
+    <text class="cat-text">{{item.category}}</text>
+  </view>
+
+  <view class="card-title">「{{item.title}}」</view>
+
+  <view class="tags" wx:if="{{item.tags && item.tags.length}}">
+    <text class="tag" wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+  </view>
+
+  <view class="card-foot">
+    <view class="avatar" style="background:{{item.authorAvatar || '#2B62E0'}}">{{initial}}</view>
+    <text class="who">{{item.authorName}}</text>
+    <text class="dot">·</text>
+    <text class="time">{{timeText}}</text>
+  </view>
+</view>

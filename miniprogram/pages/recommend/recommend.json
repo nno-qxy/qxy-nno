@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "为你推荐",
+  "usingComponents": {
+    "post-card": "/components/post-card/index",
+    "empty": "/components/empty/index"
+  }
+}

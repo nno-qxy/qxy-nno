@@ -1,0 +1,80 @@
+<view class="page">
+
+  <view wx:if="{{loadError}}" class="error">
+    <text class="error-msg">{{loadError}}</text>
+    <view class="error-btn" bindtap="load">点击重试</view>
+  </view>
+
+  <block wx:elif="{{loaded}}">
+    <!-- 基本信息 -->
+    <view class="hero">
+      <view class="avatar" style="background:{{user.avatarColor || '#2B62E0'}}">{{initial}}</view>
+      <view class="hero-name">{{user.nickname || '同学'}}</view>
+      <view class="hero-sub">
+        <text wx:if="{{user.grade}}">{{user.grade}}</text>
+        <text wx:if="{{user.grade && user.major}}"> · </text>
+        <text wx:if="{{user.major}}">{{user.major}}</text>
+        <text wx:if="{{!user.grade && !user.major}}">TA 还没有填写年级与专业</text>
+      </view>
+      <view class="hero-tags" wx:if="{{user.tags && user.tags.length}}">
+        <text class="tag" wx:for="{{user.tags}}" wx:for-item="tg" wx:key="*this">{{tg}}</text>
+      </view>
+      <view class="hero-join" wx:if="{{joinText}}">加入于 {{joinText}}</view>
+    </view>
+
+    <!-- 好评率概览 -->
+    <view class="rate-card">
+      <view class="rate-item">
+        <view class="rate-num">{{user.goodCount || 0}}</view>
+        <view class="rate-label">收到好评</view>
+      </view>
+      <view class="rate-line"></view>
+      <view class="rate-item">
+        <view class="rate-num">{{rateText}}</view>
+        <view class="rate-label">好评率</view>
+      </view>
+      <view class="rate-line"></view>
+      <view class="rate-item">
+        <view class="rate-num">{{posts.length}}</view>
+        <view class="rate-label">在架帖子</view>
+      </view>
+    </view>
+
+    <!-- 切换 -->
+    <view class="tabs">
+      <view class="tab {{tab === 'posts' ? 'on' : ''}}" data-tab="posts" bindtap="onSwitchTab">TA 的帖子</view>
+      <view class="tab {{tab === 'reviews' ? 'on' : ''}}" data-tab="reviews" bindtap="onSwitchTab">收到的评价</view>
+    </view>
+
+    <!-- TA 的帖子 -->
+    <view wx:if="{{tab === 'posts'}}" class="list">
+      <post-card wx:for="{{posts}}" wx:key="_id" item="{{item}}" bind:tap="onTapPost" />
+      <empty wx:if="{{!posts.length}}" text="TA 还没有在架的帖子" hint="过段时间再来看看" />
+      <view wx:if="{{hasMore}}" class="more-tip muted">仅展示最近 20 条</view>
+    </view>
+
+    <!-- 收到的评价 -->
+    <view wx:else class="list">
+      <view class="rev" wx:for="{{reviews}}" wx:for-item="r" wx:key="_key">
+        <view class="rev-top">
+          <view class="rev-avatar" style="background:{{r.evaluatorAvatar || '#5F6772'}}">{{r.initial}}</view>
+          <view class="rev-mid">
+            <view class="rev-name">{{r.evaluatorName || '同学'}}</view>
+            <view class="rev-meta">{{r.roleText}} · {{r.timeText}}</view>
+          </view>
+          <view wx:if="{{r.ratingText}}" class="rev-badge {{r.rating === 'satisfied' ? 'ok' : 'bad'}}">{{r.ratingText}}</view>
+          <view wx:else class="rev-badge note">评语</view>
+        </view>
+        <view wx:if="{{r.comment}}" class="rev-comment">{{r.comment}}</view>
+        <view
+          wx:if="{{r.postTitle}}"
+          class="rev-post"
+          data-id="{{r.postId}}"
+          bindtap="onTapPost"
+        >来自帖子「{{r.postTitle}}」›</view>
+      </view>
+      <empty wx:if="{{!reviews.length}}" text="TA 还没有收到评价" hint="完成交换后双方可以互评" />
+    </view>
+  </block>
+
+</view>

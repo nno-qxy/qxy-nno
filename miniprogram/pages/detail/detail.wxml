@@ -1,0 +1,120 @@
+<view class="page">
+
+  <view wx:if="{{loadError}}" class="error">
+    <text class="error-msg">{{loadError}}</text>
+    <view class="error-btn" bindtap="loadDetail">点击重试</view>
+  </view>
+
+  <block wx:elif="{{post}}">
+    <!-- 头部：类型 + 分类 -->
+    <view class="hd">
+      <view class="mark {{type.cls}}">
+        <text class="arw">{{type.arrow}}</text>{{type.text}}
+      </view>
+      <text class="cat-text">{{post.category}}</text>
+    </view>
+
+    <view class="title">「{{post.title}}」</view>
+
+    <!-- 正文 -->
+    <view class="content">{{post.content}}</view>
+
+    <!-- 标签 -->
+    <view class="tags" wx:if="{{post.tags && post.tags.length}}">
+      <text class="tag" wx:for="{{post.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+    </view>
+
+    <!-- 作者信息（点此进入 TA 的主页：基本信息 + 好评率 + 帖子） -->
+    <view class="author" bindtap="onTapAuthor" hover-class="author-hover">
+      <view class="avatar" style="background:{{post.authorAvatar || '#2B62E0'}}">{{initial}}</view>
+      <view class="author-info">
+        <view class="author-name">{{post.authorName}}</view>
+        <view class="author-time">{{timeText}} · 查看 TA 的主页</view>
+      </view>
+      <text class="author-arrow">›</text>
+    </view>
+
+    <!-- 联系方式（仅 passed 状态可见） -->
+    <view wx:if="{{contactText}}" class="contact">
+      <view class="grp">联系方式</view>
+      <view class="contact-line">{{contactText}}</view>
+      <view class="contact-hint">发起交换后，对方也会看到你的联系方式</view>
+    </view>
+
+    <!-- 交换安全提醒（线下见面前先看一眼） -->
+    <view wx:if="{{post.status === 'passed' && !isMine}}" class="safety-line">
+      <text class="safety-ico">⚠</text>
+      <text class="safety-text">{{safetyLine}}</text>
+    </view>
+
+    <!-- Z-08 发起交换（帖子始终开放申请：帖主已接受别人也不会挡住新申请） -->
+    <view wx:if="{{post.status === 'passed' && isMine}}" class="apply-bar mine-tip">
+      这是你发布的帖子
+    </view>
+    <view wx:elif="{{post.status === 'passed'}}" class="apply-bar">
+      <view class="apply-info">
+        <view class="apply-title">{{applied ? '已发起交换申请' : '感兴趣？'}}</view>
+        <view class="apply-sub">{{applied ? '等待对方确认，进度见「我的-我的交换」' : '发起后对方会在「收到的申请」里看到你'}}</view>
+      </view>
+      <button
+        class="apply-btn {{applied ? 'is-done' : ''}}"
+        disabled="{{applied || applying}}"
+        bindtap="onApply"
+      >{{applying ? '发送中…' : applied ? '已申请' : '发起交换'}}</button>
+    </view>
+
+    <!-- 帖主视角：有进行中的交换时暂不能确认新申请 -->
+    <view wx:if="{{ownerBusyTip}}" class="status-tip busy">{{ownerBusyTip}}</view>
+
+    <!-- 状态提示（非 passed） -->
+    <view wx:if="{{post.status === 'pending'}}" class="status-tip pending">
+      这条帖子正在审核中
+    </view>
+    <view wx:if="{{post.status === 'rejected'}}" class="status-tip rejected">
+      <text>已驳回：{{post.rejectReason || '（未填写理由）'}}</text>
+    </view>
+    <view wx:if="{{post.status === 'offline'}}" class="status-tip offline">
+      这条帖子已下架
+    </view>
+
+    <!-- 交换评价（类似售后评价）：学员评分 + 教学者评语 -->
+    <view class="reviews">
+      <view class="rev-head">
+        <text class="rev-title">交换评价</text>
+        <text wx:if="{{reviewSummary && reviewSummary.total}}" class="rev-rate">好评率 {{reviewSummary.goodRate}}%</text>
+      </view>
+
+      <block wx:if="{{reviews.length}}">
+        <view class="rev" wx:for="{{reviews}}" wx:for-item="r" wx:key="_key">
+          <view class="rev-top">
+            <view class="rev-avatar" style="background:{{r.evaluatorAvatar || '#5F6772'}}">{{r.initial}}</view>
+            <view class="rev-mid">
+              <view class="rev-name">{{r.evaluatorName || '同学'}}</view>
+              <view class="rev-meta">{{r.roleText}} · {{r.timeText}}</view>
+            </view>
+            <view wx:if="{{r.ratingText}}" class="rev-badge {{r.rating === 'satisfied' ? 'ok' : 'bad'}}">{{r.ratingText}}</view>
+            <view wx:else class="rev-badge note">评语</view>
+          </view>
+          <view wx:if="{{r.comment}}" class="rev-comment">{{r.comment}}</view>
+        </view>
+      </block>
+      <view wx:elif="{{reviewsLoaded}}" class="rev-empty">还没有评价，完成一次交换后双方可以互评</view>
+    </view>
+
+    <!-- Z-07 相关推荐 -->
+    <view wx:if="{{relatedList.length}}" class="related">
+      <view class="grp">相关推荐</view>
+      <post-card
+        wx:for="{{relatedList}}"
+        wx:key="_id"
+        item="{{item}}"
+        bind:tap="onTapRelated"
+      />
+    </view>
+  </block>
+
+  <view wx:elif="{{loaded}}" class="error">
+    <text class="error-msg">该帖子不存在或不可见</text>
+  </view>
+
+</view>

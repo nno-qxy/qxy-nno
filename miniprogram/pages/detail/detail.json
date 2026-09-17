@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "帖子详情",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "post-card": "/components/post-card/index"
+  }
+}

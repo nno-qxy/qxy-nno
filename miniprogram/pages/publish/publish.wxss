@@ -1,0 +1,107 @@
+.page { min-height: 100vh; }
+
+.seg {
+  display: flex;
+  margin: 20rpx 24rpx;
+  background: var(--card);
+  border-radius: 20rpx;
+  padding: 8rpx;
+  gap: 8rpx;
+}
+.seg-item {
+  flex: 1;
+  text-align: center;
+  font-size: 28rpx;
+  color: var(--muted);
+  padding: 18rpx 0;
+  border-radius: 16rpx;
+  transition: all 0.2s;
+}
+.seg-item.on.teach {
+  color: #fff;
+  background: var(--teach);
+  font-weight: 600;
+}
+.seg-item.on.learn {
+  color: #fff;
+  background: var(--learn);
+  font-weight: 600;
+}
+
+.field {
+  background: var(--card);
+  margin: 16rpx 24rpx;
+  border-radius: 20rpx;
+  padding: 24rpx;
+}
+.field-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12rpx;
+}
+.field-label {
+  font-size: 26rpx;
+  color: var(--muted);
+  font-weight: 600;
+}
+.field-count {
+  font-size: 22rpx;
+  color: var(--muted);
+}
+.field-count.over {
+  color: var(--red-deep);
+  font-weight: 600;
+}
+.field-value {
+  font-size: 30rpx;
+  color: var(--ink);
+  padding: 8rpx 0;
+}
+.input {
+  width: 100%;
+  font-size: 30rpx;
+  color: var(--ink);
+  padding: 8rpx 0;
+  box-sizing: border-box;
+}
+.textarea {
+  width: 100%;
+  font-size: 28rpx;
+  color: var(--ink);
+  line-height: 1.6;
+  min-height: 160rpx;
+  box-sizing: border-box;
+}
+.field-hint {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 8rpx;
+}
+
+.submit {
+  margin: 32rpx 24rpx;
+  background: var(--red-deep);
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  padding: 24rpx 0;
+  border: none;
+}
+.submit::after {
+  border: none;
+}
+.submit.disabled {
+  background: var(--muted);
+  opacity: 0.7;
+}
+
+.tip {
+  font-size: 22rpx;
+  color: var(--muted);
+  text-align: center;
+  padding: 0 32rpx;
+  margin-top: 8rpx;
+  line-height: 1.6;
+}

@@ -1,0 +1,35 @@
+/**
+ * 设计 Token —— 严格取自 原型设计/design-language.md（方向二定稿）
+ * 全站样式只引用此处变量；不引入任何 UI 组件库，样式全部手写
+ */
+:root {
+  --canvas: #F5F6F8;
+  --card: #FFFFFF;
+  --feed-bg: #F7F7F8;
+  --ink: #1F2329;
+  --ink-2: #2B2F38;
+  --muted: #5F6776;
+  --line: rgba(48, 48, 52, 0.10);
+  --line-soft: rgba(48, 48, 52, 0.06);
+  --hover: rgba(48, 48, 52, 0.05);
+
+  --teach: #2B62E0;
+  --teach-bg: rgba(43, 98, 224, 0.10);
+  --learn: #7A3FE0;
+  --learn-bg: rgba(122, 63, 224, 0.10);
+
+  --red: #FF2442;
+  --red-deep: #C2183D;
+
+  --ok: #1F8A4C;
+  --ok-bg: rgba(31, 138, 76, 0.12);
+  --warn: #C2410C;
+  --warn-bg: rgba(194, 65, 12, 0.12);
+  --pending: #5B6472;
+  --pending-bg: rgba(91, 100, 114, 0.12);
+
+  --shadow: 0 2px 14px rgba(48, 48, 52, 0.07);
+  --shadow-lg: 0 8px 30px rgba(48, 48, 52, 0.12);
+  --radius: 12px;
+  --font: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}

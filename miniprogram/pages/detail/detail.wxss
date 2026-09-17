@@ -1,0 +1,324 @@
+.page {
+  min-height: 100vh;
+  background: var(--feed-bg);
+  padding: 0 0 48rpx;
+}
+
+.hd {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 24rpx 0;
+}
+.mark {
+  display: inline-flex;
+  align-items: center;
+  font-size: 22rpx;
+  font-weight: 600;
+  padding: 6rpx 14rpx;
+  border-radius: 8rpx;
+}
+.mark.teach { color: var(--teach); background: #E7EEFF; }
+.mark.learn { color: var(--learn); background: #EFE2FF; }
+.mark .arw { margin-right: 4rpx; font-size: 22rpx; }
+.cat-text { font-size: 22rpx; color: var(--muted); }
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 16rpx 24rpx 24rpx;
+  line-height: 1.4;
+}
+
+.content {
+  font-size: 28rpx;
+  color: var(--ink);
+  line-height: 1.7;
+  padding: 0 24rpx 24rpx;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tags {
+  padding: 0 24rpx 24rpx;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.tag {
+  font-size: 22rpx;
+  color: var(--teach);
+  background: #E7EEFF;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx;
+  margin: 0 24rpx;
+  background: var(--card);
+  border-radius: 20rpx;
+}
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+.author-info {
+  flex: 1;
+}
+.author-name {
+  font-size: 28rpx;
+  color: var(--ink);
+  font-weight: 600;
+}
+.author-time {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 4rpx;
+}
+
+.grp {
+  font-size: 24rpx;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 32rpx 24rpx 12rpx;
+}
+.contact-line {
+  font-size: 28rpx;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 0 24rpx;
+  word-break: break-all;
+}
+.contact-hint {
+  font-size: 22rpx;
+  color: var(--muted);
+  padding: 12rpx 24rpx 0;
+}
+
+/* 交换安全提醒条 */
+.safety-line {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+  margin: 16rpx 24rpx;
+  padding: 16rpx 18rpx;
+  background: var(--warn-bg);
+  border-radius: 14rpx;
+}
+.safety-line .safety-ico {
+  font-size: 24rpx;
+  line-height: 1.5;
+  flex: 0 0 auto;
+  color: var(--warn);
+}
+.safety-line .safety-text {
+  flex: 1;
+  font-size: 23rpx;
+  color: var(--warn);
+  line-height: 1.5;
+}
+
+.status-tip {
+  font-size: 26rpx;
+  padding: 16rpx 24rpx;
+  margin: 24rpx;
+  border-radius: 16rpx;
+  font-weight: 500;
+}
+.status-tip.pending {
+  color: var(--warn);
+  background: #FFF5E6;
+}
+.status-tip.rejected {
+  color: #C73E1D;
+  background: #FFE7E1;
+}
+.status-tip.offline {
+  color: var(--muted);
+  background: var(--hover);
+}
+/* 帖主侧：有进行中的交换，暂不能确认新申请 */
+.status-tip.busy {
+  color: var(--warn);
+  background: var(--warn-bg);
+}
+
+/* Z-08 发起交换 */
+.apply-bar {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+  margin: 24rpx 24rpx 0;
+  background: var(--card);
+  border-radius: 20rpx;
+  padding: 22rpx 24rpx;
+}
+.apply-info {
+  flex: 1;
+  min-width: 0;
+}
+.apply-title {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--ink);
+}
+.apply-sub {
+  font-size: 22rpx;
+  color: var(--muted);
+  margin-top: 4rpx;
+}
+.apply-btn {
+  flex: 0 0 auto;
+  background: var(--red-deep);
+  color: #fff;
+  font-size: 26rpx;
+  font-weight: 600;
+  border-radius: 999rpx;
+  padding: 12rpx 32rpx;
+  line-height: 1.7;
+  margin: 0;
+}
+.apply-btn.is-done {
+  background: var(--hover);
+  color: var(--muted);
+}
+.apply-bar.mine-tip {
+  font-size: 24rpx;
+  color: var(--muted);
+  justify-content: center;
+}
+
+/* Z-07 相关推荐容器：卡片自身带 margin-bottom，这里只管左右边距与顶部间距 */
+.related {
+  margin-top: 16rpx;
+  padding: 0 24rpx;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96rpx 24rpx;
+  gap: 24rpx;
+}
+.error-msg {
+  font-size: 28rpx;
+  color: var(--warn);
+}
+.error-btn {
+  font-size: 26rpx;
+  color: #fff;
+  background: var(--red-deep);
+  border-radius: 999rpx;
+  padding: 12rpx 36rpx;
+  font-weight: 600;
+}
+
+/* 作者卡可点击进入主页 */
+.author {
+  justify-content: space-between;
+}
+.author-hover {
+  background: var(--hover);
+}
+.author-arrow {
+  flex: 0 0 auto;
+  font-size: 34rpx;
+  color: var(--muted);
+  line-height: 1;
+  padding-left: 8rpx;
+}
+
+/* 交换评价区 */
+.reviews {
+  margin: 32rpx 24rpx 0;
+}
+.rev-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 12rpx;
+}
+.rev-title {
+  font-size: 24rpx;
+  color: var(--muted);
+  font-weight: 600;
+}
+.rev-rate {
+  font-size: 24rpx;
+  color: var(--ok);
+  font-weight: 600;
+}
+.rev {
+  background: var(--card);
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-bottom: 16rpx;
+}
+.rev-top {
+  display: flex;
+  align-items: center;
+}
+.rev-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 26rpx;
+  flex: none;
+}
+.rev-mid {
+  flex: 1;
+  margin-left: 16rpx;
+  min-width: 0;
+}
+.rev-name {
+  font-size: 26rpx;
+  color: var(--ink);
+  font-weight: 500;
+}
+.rev-meta {
+  margin-top: 4rpx;
+  font-size: 22rpx;
+  color: var(--muted);
+}
+.rev-badge {
+  flex: none;
+  font-size: 22rpx;
+  padding: 6rpx 16rpx;
+  border-radius: 999rpx;
+}
+.rev-badge.ok { color: var(--ok); background: var(--ok-bg); }
+.rev-badge.bad { color: var(--warn); background: var(--warn-bg); }
+.rev-badge.note { color: var(--pending); background: var(--pending-bg); }
+.rev-comment {
+  margin-top: 16rpx;
+  font-size: 27rpx;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.rev-empty {
+  font-size: 25rpx;
+  color: var(--muted);
+  background: var(--card);
+  border-radius: 16rpx;
+  padding: 32rpx 24rpx;
+  text-align: center;
+}

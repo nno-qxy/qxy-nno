@@ -1,0 +1,10 @@
+{
+  "name": "skillswap-api",
+  "version": "0.1.0",
+  "description": "校园技能交换与知识共享平台 - 业务 HTTP 云函数",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.7.1"
+  }
+}

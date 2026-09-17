@@ -1,0 +1,9 @@
+{
+  "name": "seed-related",
+  "version": "1.0.0",
+  "description": "临时种子函数：灌一批标签重叠的 passed 帖用于验收 Z-07 相关推荐",
+  "main": "index.js",
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.8.0"
+  }
+}

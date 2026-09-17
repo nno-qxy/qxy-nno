@@ -1,0 +1,189 @@
+<view class="page">
+
+  <!-- 顶部 Tab -->
+  <view class="tabs">
+    <view class="tab {{tab === 'received' ? 'on' : ''}}" data-tab="received" bindtap="switchTab">
+      收到的申请
+    </view>
+    <view class="tab {{tab === 'mine' ? 'on' : ''}}" data-tab="mine" bindtap="switchTab">
+      我的交换
+    </view>
+  </view>
+
+  <view wx:if="{{loading && !list.length}}" class="empty muted">加载中…</view>
+  <view wx:elif="{{!list.length}}" class="empty">
+    <text class="empty-main">{{tab === 'received' ? '还没有收到交换申请' : '还没有发起过交换'}}</text>
+    <text class="empty-sub muted">在帖子详情页点「发起交换」试试</text>
+  </view>
+
+  <view wx:else class="list">
+    <view class="row" wx:for="{{list}}" wx:key="_id">
+      <!-- 头部：角色 + 状态 -->
+      <view class="row-top">
+        <text class="role {{item.myRole}}">{{item.roleText}}</text>
+        <text class="status s-{{item.status}}">{{item.statusText}}</text>
+      </view>
+
+      <!-- 帖子标题（可跳详情） -->
+      <view class="post-title" data-postid="{{item.postId}}" bindtap="onTapPost">
+        {{item.postTitle}} ›
+      </view>
+
+      <!-- 申请留言 -->
+      <view wx:if="{{item.message}}" class="msg">"{{item.message}}"</view>
+
+      <!-- 对方 + 时间 -->
+      <view class="meta">
+        <text class="peer">对方：{{item.peerName || '同学'}}</text>
+        <text class="time muted">{{item.timeText}}</text>
+      </view>
+
+      <!-- 联系方式：帖主同意交换后，双方互相可见 -->
+      <view wx:if="{{item.showContact}}" class="contact">
+        <view class="contact-title">联系方式</view>
+        <view
+          class="contact-line"
+          data-text="{{item.contactText}}"
+          bindlongpress="onCopyContact"
+        >
+          <text class="contact-k">对方</text>
+          <text class="contact-v {{item.contactText ? '' : 'is-empty'}}">{{item.contactText || '对方还没填联系方式，可在下方留言约定'}}</text>
+        </view>
+        <view
+          class="contact-line"
+          data-text="{{item.myContactText}}"
+          bindlongpress="onCopyContact"
+        >
+          <text class="contact-k">我方</text>
+          <text class="contact-v {{item.myContactText ? '' : 'is-empty'}}">{{item.myContactText || '我还没填联系方式，去「我的-个人信息」补上'}}</text>
+        </view>
+        <view wx:if="{{item.contactText}}" class="contact-tip">长按号码可复制</view>
+      </view>
+
+      <!-- 开始协作进度 -->
+      <view wx:if="{{item.startWaiting}}" class="hint muted">你已确认开始，等待对方确认</view>
+      <!-- 取消交换进度：已申请取消 / 对方申请取消 / 已取消（终态，跳过评价） -->
+      <view wx:if="{{item.cancelWaiting}}" class="hint muted">你已申请取消，等对方确认后这次交换即取消</view>
+      <view wx:if="{{item.cancelPeerTip}}" class="hint muted">{{item.cancelPeerTip}}</view>
+      <view wx:if="{{item.isCancelled}}" class="hint muted">{{item.cancelDoneTip}}</view>
+      <!-- 不能开始 / 不能确认的说明：两种维度共用一个提示位
+           1) 该帖已有别的进行中交换（postBusy）
+           2) 我和 TA 之间已有进行中交换（peerBusy）—— 同一对用户同时只能开一摊 -->
+      <view wx:if="{{item.startBlocked}}" class="hint muted">{{item.startBusyTip}}</view>
+      <view wx:if="{{item.decideBlocked}}" class="hint muted">{{item.decideBusyTip}}</view>
+      <view wx:if="{{item.peerNoteText}}" class="note-msg">
+        <text class="note-ico">✉</text>
+        <text class="note-text">对方：{{item.peerNoteText}}</text>
+        <text class="note-time">{{item.peerNoteTime}}</text>
+      </view>
+      <view wx:if="{{item.waitingOther}}" class="hint muted">你已完成，等待对方确认完成</view>
+      <view wx:if="{{item.canEvaluate}}" class="hint muted">{{item.evalHint}}</view>
+
+      <!-- 交换已达成：安全提示条（双方可见，点击看完整须知） -->
+      <view wx:if="{{item.showSafety}}" class="safety" bindtap="onSafety">
+        <text class="safety-ico">⚠</text>
+        <text class="safety-text">{{safetyBrief}}</text>
+        <text class="safety-more">详情›</text>
+      </view>
+
+      <!-- 已评价：收起评价按钮与提示，改为展示「评价结果」（我的评价 + 对方的评价） -->
+      <view wx:if="{{item.evaluated && item.myEval}}" class="evals">
+        <view class="evals-head">
+          <text class="evals-title">已完成评价</text>
+          <text class="evals-state {{item.bothEvaluated ? 'done' : ''}}">{{item.evalDoneTip}}</text>
+        </view>
+
+        <view class="eval-item">
+          <view class="eval-row">
+            <text class="eval-who">我的评价</text>
+            <text
+              wx:if="{{item.myEval.ratingText}}"
+              class="eval-badge {{item.myEval.ok ? 'ok' : (item.myEval.bad ? 'bad' : 'none')}}"
+            >{{item.myEval.ratingText}}</text>
+            <text wx:if="{{item.myEval.isTeacher}}" class="eval-badge note">评语</text>
+            <text wx:if="{{item.myEval.timeText}}" class="eval-time">{{item.myEval.timeText}}</text>
+          </view>
+          <view class="eval-text {{item.myEval.comment ? '' : 'is-empty'}}">
+            {{item.myEval.comment || '（未填写评语）'}}
+          </view>
+        </view>
+
+        <view wx:if="{{item.peerEval}}" class="eval-item">
+          <view class="eval-row">
+            <text class="eval-who">对方的评价</text>
+            <text
+              wx:if="{{item.peerEval.ratingText}}"
+              class="eval-badge {{item.peerEval.ok ? 'ok' : (item.peerEval.bad ? 'bad' : 'none')}}"
+            >{{item.peerEval.ratingText}}</text>
+            <text wx:if="{{item.peerEval.isTeacher}}" class="eval-badge note">评语</text>
+            <text wx:if="{{item.peerEval.timeText}}" class="eval-time">{{item.peerEval.timeText}}</text>
+          </view>
+          <view class="eval-text {{item.peerEval.comment ? '' : 'is-empty'}}">
+            {{item.peerEval.comment || '（未填写评语）'}}
+          </view>
+        </view>
+        <view wx:else class="eval-wait">对方还没评价，评价完成后会显示在这里</view>
+      </view>
+      <view wx:elif="{{item.evaluated}}" class="hint muted">我的评价：{{item.myEvalText}}</view>
+
+      <!-- 操作区 -->
+      <view class="actions" wx:if="{{item.canDecide || item.canComplete || item.canEvaluate || item.canStart || item.canDecline || item.canCancel}}">
+        <!-- Z-09：帖主处理申请 -->
+        <block wx:if="{{item.canDecide}}">
+          <button class="btn ghost" data-id="{{item._id}}" bindtap="onReject">拒绝</button>
+          <button
+            class="btn primary"
+            disabled="{{item.decideBlocked}}"
+            data-id="{{item._id}}"
+            bindtap="onConfirm"
+          >同意交换</button>
+        </block>
+
+        <block wx:else>
+          <!-- Z-14：临时有事 / 再约时间（会发一条取消留言给对方） -->
+          <button
+            wx:if="{{item.canDecline}}"
+            class="btn ghost"
+            data-id="{{item._id}}"
+            data-label="{{item.declineLabel}}"
+            bindtap="onCancelStart"
+          >{{item.declineLabel}}</button>
+          <!-- Z-14：教学开始 / 申请开始 / 确认开始 -->
+          <button
+            wx:if="{{item.canStart}}"
+            class="btn primary"
+            data-id="{{item._id}}"
+            data-confirm="{{item.startIsConfirm ? 1 : 0}}"
+            data-teacher="{{item.startIsTeacher ? 1 : 0}}"
+            bindtap="onStart"
+          >{{item.startLabel}}</button>
+          <!-- Z-11：标记完成（只在双方都「开始」之后出现；两人都点 → 已完成，进入评价） -->
+          <button
+            wx:if="{{item.canComplete}}"
+            class="btn {{item.canStart || item.canDecline || item.canCancel ? 'ghost' : 'primary'}}"
+            data-id="{{item._id}}"
+            bindtap="onComplete"
+          >标记完成</button>
+          <!-- 取消交换（仅「待开始」阶段出现，替代原来的标记完成；双方都确认 → 已取消，跳过评价） -->
+          <button
+            wx:if="{{item.canCancel}}"
+            class="btn ghost"
+            data-id="{{item._id}}"
+            data-confirm="{{item.cancelIsConfirm ? 1 : 0}}"
+            bindtap="onCancel"
+          >{{item.cancelLabel}}</button>
+          <!-- Z-11：评价 —— 学员三态（满意/不满意/暂不评价），教学者只写评语 -->
+          <block wx:if="{{item.canEvaluate}}">
+            <block wx:if="{{item.evalRole === 'learner'}}">
+              <button class="btn ghost" data-id="{{item._id}}" data-rating="dissatisfied" bindtap="onEvaluate">不满意</button>
+              <button class="btn ghost" data-id="{{item._id}}" bindtap="onSkipEvaluate">暂不评价</button>
+              <button class="btn primary" data-id="{{item._id}}" data-rating="satisfied" bindtap="onEvaluate">满意</button>
+            </block>
+            <button wx:else class="btn primary" data-id="{{item._id}}" bindtap="onComment">给 TA 写评语</button>
+          </block>
+        </block>
+      </view>
+    </view>
+  </view>
+
+</view>

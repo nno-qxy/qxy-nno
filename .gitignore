@@ -1,0 +1,29 @@
+# ---- 依赖 ----
+node_modules/
+cloudbase/functions/*/node_modules/
+
+# ---- 构建产物 ----
+# 管理端 dist 为本地构建产物，可随时重新生成，不纳入版本管理
+admin-web/dist/
+# 注意：cloudbase/functions/admin-static/dist 需要提交，因为它随云函数一起部署
+
+# ---- 系统与编辑器 ----
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# ---- 环境变量与日志 ----
+.env
+.env.local
+.env.*.local
+*.log
+
+# ---- 微信开发者工具本地私有配置（官方模板同样忽略）----
+miniprogram/project.private.config.json
+
+# ---- 非项目文件：备份、报告撰写期的临时脚本与临时产物 ----
+backup/
+*.bak.docx
+*.tmp
+tests/_*

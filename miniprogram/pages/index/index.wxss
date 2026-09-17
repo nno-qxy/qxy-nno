@@ -1,0 +1,270 @@
+/* ============ 搜索：按标签搜（首页唯一入口） ============ */
+.sbar {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 18rpx 24rpx 6rpx;
+  background: #fff;
+}
+.sbox {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 68rpx;
+  padding: 0 24rpx;
+  background: var(--hover);
+  border-radius: 999rpx;
+}
+/* 放大镜：纯 CSS 画的，避免不同机型 emoji 字形差异 */
+.s-ico {
+  width: 24rpx;
+  height: 24rpx;
+  border: 3rpx solid var(--muted);
+  border-radius: 50%;
+  position: relative;
+  margin-right: 16rpx;
+  flex: none;
+}
+.s-ico::after {
+  content: "";
+  position: absolute;
+  right: -10rpx;
+  bottom: -5rpx;
+  width: 12rpx;
+  height: 3rpx;
+  background: var(--muted);
+  transform: rotate(45deg);
+}
+.s-input {
+  flex: 1;
+  height: 68rpx;
+  font-size: 27rpx;
+  color: var(--ink-2);
+}
+.s-ph { color: var(--muted); font-size: 26rpx; }
+.s-clear {
+  flex: none;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 22rpx;
+  color: #fff;
+  background: rgba(48, 48, 52, 0.22);
+  margin-left: 10rpx;
+}
+.s-go {
+  flex: none;
+  height: 68rpx;
+  line-height: 68rpx;
+  padding: 0 30rpx;
+  border-radius: 999rpx;
+  font-size: 27rpx;
+  font-weight: 600;
+  color: #fff;
+  background: var(--red-deep);
+}
+
+/* 热门标签建议：聚焦时展开，点一下直接搜 */
+.sug {
+  padding: 16rpx 24rpx 14rpx;
+  background: #fff;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+.sug-go {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8rpx 0 16rpx;
+}
+.sug-go-t { font-size: 28rpx; color: var(--ink); font-weight: 600; }
+.sug-go-a { font-size: 28rpx; color: var(--muted); }
+.sug-title {
+  font-size: 24rpx;
+  color: var(--muted);
+  margin-bottom: 14rpx;
+}
+.sug-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14rpx;
+}
+.sug-chip {
+  font-size: 25rpx;
+  color: var(--ink-2);
+  background: var(--hover);
+  border-radius: 999rpx;
+  padding: 10rpx 24rpx;
+}
+.sug-chip.on { color: #fff; background: var(--red-deep); font-weight: 600; }
+.sug-empty { font-size: 24rpx; color: var(--muted); }
+.sug-close {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--muted);
+  padding-top: 16rpx;
+  opacity: .85;
+}
+
+/* 生效中的搜索条件 */
+.kwbar {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 14rpx 24rpx 0;
+  background: #fff;
+}
+.kw-label { font-size: 24rpx; color: var(--muted); }
+.kw-chip {
+  display: flex;
+  align-items: center;
+  background: var(--hover);
+  border-radius: 999rpx;
+  padding: 8rpx 20rpx;
+}
+.kw-text { font-size: 25rpx; color: var(--ink-2); }
+.kw-x { font-size: 22rpx; color: var(--muted); margin-left: 12rpx; }
+
+/* 意图 Tab：颜色编码复用 --teach / --learn，与卡片角标语义一致 */
+.intents {
+  display: flex;
+  gap: 12rpx;
+  padding: 18rpx 24rpx 0;
+  background: #fff;
+}
+.intent {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64rpx;
+  border-radius: 999rpx;
+  background: var(--hover);
+  font-size: 27rpx;
+  color: var(--muted);
+}
+.intent.on { font-weight: 600; }
+.intent.on.all { background: rgba(48, 48, 52, 0.12); color: var(--ink); }
+.intent.on.learn { background: var(--learn-bg); color: var(--learn); }
+.intent.on.teach { background: var(--teach-bg); color: var(--teach); }
+.intent-num { font-size: 22rpx; margin-left: 6rpx; opacity: .7; }
+
+.cats {
+  white-space: nowrap;
+  height: 92rpx;
+  padding: 0 24rpx;
+  background: #fff;
+  border-bottom: 1rpx solid var(--line-soft);
+}
+.chip {
+  display: inline-block;
+  font-size: 26rpx;
+  color: var(--muted);
+  background: var(--hover);
+  border-radius: 999rpx;
+  padding: 12rpx 26rpx;
+  margin: 18rpx 16rpx 0 0;
+}
+.chip.on {
+  color: #fff;
+  background: var(--red-deep);
+  font-weight: 600;
+}
+
+.feed {
+  padding: 20rpx 24rpx;
+  background: var(--feed-bg);
+  min-height: 60vh;
+}
+.feed-end {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--muted);
+  padding: 24rpx 0;
+}
+.feed-loading {
+  text-align: center;
+  font-size: 24rpx;
+  color: var(--muted);
+  padding: 24rpx 0;
+}
+
+/* 空态：把「没有结果」做成转化点（发布 / 切到对侧） */
+.feed-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 100rpx 40rpx 60rpx;
+}
+.fe-box {
+  width: 120rpx;
+  height: 96rpx;
+  border: 2rpx solid var(--line);
+  border-radius: 12rpx;
+  margin-bottom: 24rpx;
+  position: relative;
+}
+.fe-box::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -18rpx;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 18rpx;
+  border: 2rpx solid var(--line);
+  border-bottom: none;
+  border-radius: 8rpx 8rpx 0 0;
+}
+.fe-text { font-size: 28rpx; color: var(--muted); text-align: center; }
+.fe-hint {
+  font-size: 24rpx;
+  color: var(--muted);
+  margin-top: 10rpx;
+  opacity: .8;
+  text-align: center;
+}
+.fe-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 40rpx;
+  width: 100%;
+}
+.fe-btn {
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+}
+.fe-btn.primary {
+  background: var(--red-deep);
+  color: #fff;
+  font-weight: 600;
+}
+.fe-btn.ghost {
+  background: var(--hover);
+  color: var(--ink-2);
+}
+
+.feed-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 48rpx 24rpx;
+  gap: 16rpx;
+}
+.feed-error-msg {
+  font-size: 26rpx;
+  color: var(--warn);
+}
+.feed-error-btn {
+  font-size: 26rpx;
+  color: #fff;
+  background: var(--red-deep);
+  border-radius: 999rpx;
+  padding: 12rpx 36rpx;
+  font-weight: 600;
+}

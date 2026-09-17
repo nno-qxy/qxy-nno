@@ -1,0 +1,11 @@
+{
+  "navigationBarTitleText": "TA 的主页",
+  "navigationBarBackgroundColor": "#FFFFFF",
+  "navigationBarTextStyle": "black",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#F5F6F8",
+  "usingComponents": {
+    "post-card": "/components/post-card/index",
+    "empty": "/components/empty/index"
+  }
+}

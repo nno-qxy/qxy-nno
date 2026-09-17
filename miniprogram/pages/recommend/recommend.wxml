@@ -1,0 +1,40 @@
+<view class="page">
+
+  <!-- 发布成功提示 -->
+  <view class="hero">
+    <view class="hero-tag {{originType}}">{{originLabel}}</view>
+    <view class="hero-title">{{heroTitle}}</view>
+    <view class="hero-sub">{{heroSub}}</view>
+  </view>
+
+  <view class="grp">同标签的「{{recLabel}}」</view>
+
+  <view class="feed">
+    <post-card
+      wx:for="{{list}}"
+      wx:key="_id"
+      item="{{item}}"
+      bind:tap="onTapCard"
+    />
+
+    <empty
+      wx:if="{{loaded && !loadError && !list.length}}"
+      text="暂时没有同标签的「{{recLabel}}」"
+      hint="换个标签试试，或去广场逛逛"
+    />
+
+    <view class="feed-error" wx:if="{{loadError}}">
+      <text class="feed-error-msg">{{loadError}}</text>
+      <view class="feed-error-btn" bindtap="load">点击重试</view>
+    </view>
+
+    <view class="feed-loading" wx:if="{{!loaded}}">加载中...</view>
+  </view>
+
+  <!-- 底部操作 -->
+  <view class="foot">
+    <button class="btn ghost" bindtap="goIndex">去广场逛逛</button>
+    <button class="btn primary" bindtap="goPublish">再发一条</button>
+  </view>
+
+</view>

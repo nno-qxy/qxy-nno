@@ -1,0 +1,80 @@
+{
+  "envId": "nno-d2gspwvpl6c3c9f46",
+  "dbType": "CloudBase 文档型数据库",
+  "securityRule": { "read": false, "write": false },
+  "collections": [
+    {
+      "name": "users",
+      "comment": "用户（学生）信息，_openid 为身份主键",
+      "fields": [
+        { "name": "_openid", "type": "string", "required": true, "unique": true, "comment": "微信 openid，唯一身份标识" },
+        { "name": "role", "type": "string", "enum": ["user", "admin"], "default": "user", "comment": "角色" },
+        { "name": "nickname", "type": "string", "comment": "昵称" },
+        { "name": "avatarColor", "type": "string", "comment": "头像色块（不用真实图片）" },
+        { "name": "studentId", "type": "string", "comment": "学号，8-15 位数字（Z-02）" },
+        { "name": "realName", "type": "string", "comment": "真实姓名（Z-02）" },
+        { "name": "grade", "type": "string", "comment": "年级" },
+        { "name": "major", "type": "string", "comment": "专业" },
+        { "name": "tags", "type": "array", "itemType": "string", "comment": "技能标签，最多 8 个" },
+        { "name": "contact", "type": "string", "comment": "联系方式，详情页对已登录用户展示" },
+        { "name": "status", "type": "string", "enum": ["active", "banned"], "default": "active", "comment": "账号状态（G-08）" },
+        { "name": "bannedPosts", "type": "array", "itemType": "string", "comment": "封禁时下架的帖子 _id 列表，解封时精确恢复（G-08）" },
+        { "name": "goodCount", "type": "number", "default": 0, "comment": "好评数，原子自增（Z-11）" },
+        { "name": "totalCount", "type": "number", "default": 0, "comment": "总评价数，原子自增（Z-11）" },
+        { "name": "createTime", "type": "number", "comment": "注册时间戳（毫秒）" },
+        { "name": "updateTime", "type": "number", "comment": "更新时间戳（毫秒）" }
+      ]
+    },
+    {
+      "name": "posts",
+      "comment": "技能帖（我能教 / 我想学）",
+      "fields": [
+        { "name": "title", "type": "string", "required": true, "comment": "标题" },
+        { "name": "type", "type": "string", "enum": ["teach", "learn"], "required": true, "comment": "teach=我能教（蓝），learn=我想学（紫）" },
+        { "name": "category", "type": "string", "enum": ["学业辅导", "语言交流", "文艺特长", "体育健身", "数码技能", "生活服务"], "required": true, "comment": "分类，固定 6 类" },
+        { "name": "content", "type": "string", "required": true, "comment": "正文" },
+        { "name": "tags", "type": "array", "itemType": "string", "comment": "技能标签（Z-07 推荐依据）" },
+        { "name": "authorId", "type": "string", "required": true, "comment": "发布者 openid" },
+        { "name": "authorName", "type": "string", "comment": "发布者展示名（列表冗余，避免 join）" },
+        { "name": "authorAvatar", "type": "string", "comment": "发布者头像色块（冗余）" },
+        { "name": "status", "type": "string", "enum": ["pending", "passed", "rejected", "offline"], "default": "pending", "comment": "审核状态（Z-06 / G-04）" },
+        { "name": "rejectReason", "type": "string", "comment": "驳回原因，驳回时必填（G-04 / Z-12）" },
+        { "name": "reviewTime", "type": "number", "comment": "审核时间戳" },
+        { "name": "reviewer", "type": "string", "comment": "审核管理员标识（G-05）" },
+        { "name": "createTime", "type": "number", "comment": "创建时间戳（游标分页键）" },
+        { "name": "updateTime", "type": "number", "comment": "更新时间戳" }
+      ]
+    },
+    {
+      "name": "exchanges",
+      "comment": "交换关系（申请 → 进行 → 完成互评）",
+      "fields": [
+        { "name": "postId", "type": "string", "required": true, "comment": "关联帖子 _id" },
+        { "name": "postTitle", "type": "string", "comment": "帖子标题（冗余，列表免查）" },
+        { "name": "applicantId", "type": "string", "required": true, "comment": "申请人 openid（发起方）" },
+        { "name": "targetId", "type": "string", "required": true, "comment": "帖主 openid（接收方）" },
+        { "name": "status", "type": "string", "enum": ["pending", "active", "started", "rejected", "completed", "cancelled"], "default": "pending", "comment": "交换状态：pending 申请中 / active 帖主已接受待开始 / started 双方已确认开始 / completed 双方都标记完成 / cancelled 双方都确认取消（跳过评价）/ rejected 已拒绝" },
+        { "name": "startBy", "type": "array", "itemType": "string", "comment": "已点「开始」的 openid 列表，两人齐全则 status=started（Z-14）" },
+        { "name": "startTime", "type": "number", "comment": "进入 started 的时间戳（Z-14）" },
+        { "name": "cancelBy", "type": "array", "itemType": "string", "comment": "已确认「取消交换」的 openid 列表，两人齐全则 status=cancelled（仅 active 阶段可写入）" },
+        { "name": "cancelTime", "type": "number", "comment": "进入 cancelled 的时间戳" },
+        { "name": "cancelNotes", "type": "array", "itemType": "object", "comment": "改约/临时有事的取消留言 {openid, text, time}（Z-14）" },
+        { "name": "completedBy", "type": "array", "itemType": "string", "comment": "已点击完成的 openid 列表，两人齐全则 completed（仅 started 阶段可写入，Z-11）" },
+        { "name": "evaluations", "type": "array", "itemType": "object", "comment": "互评记录 {openid, role, rating, comment, time}；是否齐全决定「待评价/已结束」" },
+        { "name": "createTime", "type": "number", "comment": "创建时间戳" },
+        { "name": "updateTime", "type": "number", "comment": "更新时间戳" }
+      ],
+      "uniqueIndex": [["postId", "applicantId"]]
+    },
+    {
+      "name": "configs",
+      "comment": "配置型数据（管理员登录失败计数等）",
+      "fields": [
+        { "name": "key", "type": "string", "required": true, "unique": true, "comment": "配置键，如 admin_login" },
+        { "name": "failCount", "type": "number", "default": 0, "comment": "连续失败次数" },
+        { "name": "lockedUntil", "type": "number", "default": 0, "comment": "锁定截止时间戳（毫秒）" },
+        { "name": "updateTime", "type": "number", "comment": "更新时间戳" }
+      ]
+    }
+  ]
+}

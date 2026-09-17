@@ -1,0 +1,29 @@
+/** 全局基础样式：只放排版基线与少量工具类，设计 Token 见 styles/tokens.wxss */
+@import './styles/tokens.wxss';
+
+page {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, input, textarea, button, scroll-view {
+  box-sizing: border-box;
+}
+
+.page {
+  min-height: 100vh;
+  padding-bottom: 24rpx;
+}
+
+.flex { display: flex; }
+.flex-1 { flex: 1; }
+.muted { color: var(--muted); }
+.ellipsis-1 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

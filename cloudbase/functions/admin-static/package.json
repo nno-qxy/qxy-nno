@@ -1,0 +1,8 @@
+{
+  "name": "admin-static",
+  "version": "0.1.0",
+  "description": "技能交换平台 Web 管理端静态资源托管（替代静态网站托管）",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {}
+}

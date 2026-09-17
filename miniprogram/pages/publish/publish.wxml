@@ -1,0 +1,86 @@
+<view class="page">
+
+  <!-- 类型切换：教 / 学 -->
+  <view class="seg">
+    <view
+      class="seg-item {{type === item.key ? 'on ' + item.cls : ''}}"
+      wx:for="{{types}}"
+      wx:for-item="item"
+      wx:key="key"
+      data-t="{{item.key}}"
+      bindtap="onPickType"
+    >{{item.label}}</view>
+  </view>
+
+  <!-- 分类下拉：用自研 picker-sheet 替代原生 picker，避免系统深色模式下弹层变黑 -->
+  <view class="field">
+    <view class="field-label">分类</view>
+    <view class="field-value" bindtap="onOpenCat">{{cats[catIndex] || '请选择'}} ▾</view>
+  </view>
+
+  <!-- 标题 -->
+  <view class="field">
+    <view class="field-row">
+      <view class="field-label">标题</view>
+      <text class="field-count {{titleCount > 30 ? 'over' : ''}}">{{titleCount}}/30</text>
+    </view>
+    <input
+      class="input"
+      placeholder="一句话说清楚你能教/想学什么"
+      maxlength="30"
+      value="{{title}}"
+      bindinput="onTitle"
+    />
+  </view>
+
+  <!-- 正文 -->
+  <view class="field">
+    <view class="field-row">
+      <view class="field-label">正文</view>
+      <text class="field-count {{contentCount > 500 ? 'over' : ''}}">{{contentCount}}/500</text>
+    </view>
+    <textarea
+      class="textarea"
+      placeholder="介绍你的技能或需求，例如可教时段、已有基础、希望交换的内容等"
+      maxlength="500"
+      auto-height
+      value="{{content}}"
+      bindinput="onContent"
+    />
+  </view>
+
+  <!-- 标签 -->
+  <view class="field">
+    <view class="field-row">
+      <view class="field-label">标签</view>
+      <text class="field-count {{tagCount > 8 ? 'over' : ''}}">{{tagCount}}/8</text>
+    </view>
+    <input
+      class="input"
+      placeholder="多个标签用逗号分隔，例如 高数, 线代, 答疑"
+      value="{{tagsText}}"
+      bindinput="onTags"
+    />
+    <view class="field-hint">便于其他同学搜索到你</view>
+  </view>
+
+  <!-- 提交 -->
+  <button
+    class="submit {{submitting ? 'disabled' : ''}}"
+    bindtap="onSubmit"
+    disabled="{{submitting}}"
+  >{{submitting ? '发布中...' : '发布'}}</button>
+
+  <view class="tip">提交后自动过内容安全（本地词表 + 文本安全）：合规内容直接发布；疑似违规内容将进入人工审核，审核通过才展示</view>
+
+  <!-- 分类选择弹层（自研组件，浅色样式不受系统深色模式影响） -->
+  <picker-sheet
+    show="{{catPickerShow}}"
+    range="{{cats}}"
+    value="{{catIndex}}"
+    title="选择分类"
+    bind:change="onCatChange"
+    bind:cancel="onCatCancel"
+  />
+
+</view>

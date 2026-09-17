@@ -1,0 +1,67 @@
+<view class="page">
+
+  <!-- 状态 tabs -->
+  <scroll-view class="tabs" scroll-x enable-flex>
+    <view
+      class="tab {{activeTab === item.key ? 'on' : ''}}"
+      wx:for="{{tabs}}"
+      wx:for-item="item"
+      wx:key="key"
+      data-key="{{item.key}}"
+      bindtap="onSwitchTab"
+    >{{item.label}}</view>
+  </scroll-view>
+
+  <!-- 列表 -->
+  <view class="list">
+    <view
+      class="row {{item.status === 'rejected' ? 'row-rejected' : ''}}"
+      wx:for="{{list}}"
+      wx:for-item="item"
+      wx:key="_id"
+      data-id="{{item._id}}"
+      bindtap="onTapCard"
+    >
+      <view class="row-top">
+        <view class="mark {{item._typeCls}}">
+          <text class="arw">{{item._typeArrow}}</text>{{item._typeText}}
+        </view>
+        <view class="status {{item._statusCls}}">{{item._statusText}}</view>
+      </view>
+
+      <view class="row-title">「{{item.title}}」</view>
+      <view class="row-content">{{item.content}}</view>
+
+      <!-- 驳回理由 + 重提按钮 -->
+      <view wx:if="{{expandingId === item._id && item.status === 'rejected'}}" class="rej">
+        <view class="rej-reason">驳回理由：{{item.rejectReason || '（未填写）'}}</view>
+        <view
+          class="rej-btn {{republishingId === item._id ? 'disabled' : ''}}"
+          catchtap="onRepublish"
+          data-id="{{item._id}}"
+        >{{republishingId === item._id ? '提交中...' : '一键重新提交'}}</view>
+      </view>
+
+      <view class="row-foot">
+        <text class="cat">{{item.category}}</text>
+        <text class="dot">·</text>
+        <text class="time">{{item._timeText}}</text>
+      </view>
+    </view>
+
+    <empty
+      wx:if="{{loaded && !loadError && !list.length}}"
+      text="还没有相关帖子"
+      hint="去广场看看，或点击底部「发布」"
+    />
+
+    <view class="feed-error" wx:if="{{loadError}}">
+      <text class="feed-error-msg">{{loadError}}</text>
+      <view class="feed-error-btn" bindtap="onPullDownRefresh">点击重试</view>
+    </view>
+
+    <view class="feed-loading" wx:if="{{loading}}">加载中...</view>
+    <view class="feed-end" wx:if="{{loaded && list.length && !hasMore && !loadError}}">已经到底啦</view>
+  </view>
+
+</view>

@@ -1,0 +1,10 @@
+{
+  "name": "seed-data",
+  "version": "0.1.0",
+  "description": "临时种子函数 - 演示期灌入测试数据",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@cloudbase/node-sdk": "^2.7.1"
+  }
+}
